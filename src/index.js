@@ -1,15 +1,23 @@
 // index.js
-const http = require('http');
+const express = require("express")
+const app = express()
+const path = require("path")
+const ejs = require("ejs")
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const templatePath = path.join(__dirname, "../templates")
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-});
+app.use(express.json())
+app.set("view engine", "ejs")
+app.set("views", templatePath)
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.get("/", (req, res) => {
+  res.render("login")
+})
+
+app.get("/signup", (req, res) => {
+  res.render("signup")
+})
+
+app.listen(3000, ()=>{
+  console.log("port connected")
+})
