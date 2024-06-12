@@ -8,7 +8,7 @@ const collection = require("./mongodb")
 const templatePath = path.join(__dirname, "../templates")
 
 app.use(express.json())
-app.set("view engine", "ejs")
+app.set('view engine', 'ejs')
 app.set("views", templatePath)
 app.use(express.urlencoded({extended:false}))
 
@@ -39,7 +39,7 @@ app.post("/login", async(req, res) => {
     const check = await collection.findOne({name: req.body.name})
     
     if (check.password===req.body.password){
-      res.render("home")
+      res.render("home.ejs", {name: req.body.name})
     }
     else{
       res.send("Wrong Password")
