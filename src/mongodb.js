@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+// const uri ='mongodb+srv:ishman:xtOUXLxAkBGZhrAi@myfittracker.o3zgybv.mongodb.net/?retryWrites=true&w=majority&appName=myFitTracker'
 
 mongoose.connect("mongodb://localhost:27017/myFitTracker")
 .then(()=> {
@@ -19,6 +20,6 @@ const LogInSchema = new mongoose.Schema({
     }
 })
 
-const collection=new mongoose.model("Collection1", LogInSchema)
+const collection=new mongoose.model("logInCollection", LogInSchema)
 
 module.exports=collection
