@@ -4,6 +4,7 @@ const app = express()
 const path = require("path")
 const ejs = require("ejs")
 const collection = require("./mongodb")
+const getFitbitData = require('./getFitbitData');
 
 const templatePath = path.join(__dirname, "../templates")
 
@@ -39,7 +40,15 @@ app.post("/login", async(req, res) => {
     const check = await collection.findOne({name: req.body.name})
     
     if (check.password===req.body.password){
-      res.render("home.ejs", {name: req.body.name})
+      try {
+        const fitbitData = await getFitbitData();
+        const user = fitbitData.user;
+        res.render("home.ejs", {user: user})
+      }
+      catch (error) {
+        console.error('Error fetching Fitbit data:', error);
+        res.status(500).send('Internal Server Error');
+      }
     }
     else{
       res.send("Wrong Password")
