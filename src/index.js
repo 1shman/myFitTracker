@@ -41,12 +41,11 @@ app.post("/login", async(req, res) => {
     
     if (check.password===req.body.password){
       try {
-        const fitbitData = await getFitbitData();
-        const user = fitbitData.user;
-        res.render("home.ejs", {user: user})
+        res.redirect("/home")
       }
       catch (error) {
         console.error('Error fetching Fitbit data:', error);
+        console.log(error)
         res.status(500).send('Internal Server Error');
       }
     }
@@ -58,6 +57,19 @@ app.post("/login", async(req, res) => {
     res.send("Wrong Username and/or Password")
   }
 
+})
+
+app.get("/home", async(req, res) => {
+  try {
+    const fitbitData = await getFitbitData();
+    const user = fitbitData.user;
+    res.render("home", {user: user})
+  }
+  catch (error) {
+    console.error('Error fetching Fitbit data:', error);
+    console.log(error)
+    res.status(500).send('Internal Server Error');
+  }
 })
 
 app.listen(3000, ()=>{
