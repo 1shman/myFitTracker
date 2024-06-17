@@ -9,7 +9,19 @@
     <h1>Hello  <%= user.fullName %> </h1>
     <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
     <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
-    <a href="/"> Logout </a>
+    <a href="#" onclick="logout()">Logout</a>
+    <script>
+        function logout() {
+            // Create a form element
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/logout';
+
+            // Add the form to the body and submit it
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
    
 </body>
 </html>
