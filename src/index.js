@@ -2,24 +2,24 @@
 const express = require("express")
 const path = require("path")
 const ejs = require("ejs")
+const session = require('express-session');
 const collection = require("./mongodb")
 const getFitbitData = require('./getFitbitData');
-const session = require('express-session');
 
 const templatePath = path.join(__dirname, "../templates")
-const app = express()
 
+const app = express()
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 app.set('view engine', 'ejs')
 app.set("views", templatePath)
-app.use(express.urlencoded({extended:false}))
-
 app.use(session({
-  secret: 'mumbojumbo', // Replace with a strong secret key
+  secret: 'mumbojumbo', //secret key
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set to true if you are using HTTPS
+  cookie: { secure: false } // Set to true if HTTPS
 }))
+app.use(express.static(path.join(__dirname, '../public')))
 
 app.get("/", (req, res) => {
   res.render("login")
@@ -80,7 +80,7 @@ app.post("/logout", (req, res) => {
     if (err){
       return res.status(500).send('Could not log out.')
     }
-    res.clearCookie('connect.sid'); // Clear the session cookie
+    res.clearCookie('connect.sid')
     res.redirect("/")
   })
 })
