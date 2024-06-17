@@ -11,15 +11,55 @@
 
 // src/getFitbitData.js
 
+let accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BKVlYiLCJzdWIiOiI4WTY1WU4iLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJsb2MgcnJlcyByd2VpIHJociBydGVtIiwiZXhwIjoxNzE4NjY4ODg0LCJpYXQiOjE3MTg2NDAwODR9.wJT_9yt2v1ZTyt2PnUJb6oTCOgiLpivhaVvs4EPTams"
+let refreshTokenValue = "7d754d7b1b0abd087e23a12e983a9fc46f1b74f7c4d2c4fd36dc53f52d99ba30"
+const clientID = "23PJVV"
+const clientSecret = "3b6ffef79eb778b0723b95deae687708"
+
+
+async function refreshToken(refreshToken, clientID, clientSecret){
+  const response = await fetfetch('https://api.fitbit.com/oauth2/token', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Basic ' + Buffer.from(clientID + ':' + clientSecret).toString('base64'),
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to refresh token: ' + response.statusText);
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 async function getFitbitData() {
-    const access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BKVlYiLCJzdWIiOiI4WTY1WU4iLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJyZXMgcmxvYyByd2VpIHJociBydGVtIiwiZXhwIjoxNzE4NTA3MTExLCJpYXQiOjE3MTg0NzgzMTF9.jv7FYNWwW4tWSU8tn-WcOxvuu64xb8h6hkktcZijdR4"
     const response = await fetch('https://api.fitbit.com/1/user/-/profile.json', {
         method: 'GET',
-        headers: {'Authorization': 'Bearer ' + access_token }
+        headers: {'Authorization': 'Bearer ' + accessToken }
     })
 
+    if (response.status === 401){
+      const tokenData = await refreshToken(refreshTokenValue, clientID, clientSecret)
+      accessToken = tokenData.accessToken
+      refreshTokenValue = tokenData.refreshToken
+
+      response = await fetch("https://api.fitbit.com/1/user/-/profile.json", {
+        method: 'GET', 
+        headers: {
+          'Authorization': 'Bearer ' + accessToken
+        }
+      });
+    }
+
     if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
+      console.log(response)
+      throw new Error('FitBit Network response was not ok: ' + response.statusText);
     }
 
     const data = await response.json();

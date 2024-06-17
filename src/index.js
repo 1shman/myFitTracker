@@ -40,14 +40,7 @@ app.post("/login", async(req, res) => {
     const check = await collection.findOne({name: req.body.name})
     
     if (check.password===req.body.password){
-      try {
-        res.redirect("/home")
-      }
-      catch (error) {
-        console.error('Error fetching Fitbit data:', error);
-        console.log(error)
-        res.status(500).send('Internal Server Error');
-      }
+      res.redirect("/home")
     }
     else{
       res.send("Wrong Password")
