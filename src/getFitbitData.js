@@ -11,8 +11,9 @@
 
 // src/getFitbitData.js
 
-let accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BKVlYiLCJzdWIiOiI4WTY1WU4iLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJsb2MgcnJlcyByd2VpIHJociBydGVtIiwiZXhwIjoxNzE4NjY4ODg0LCJpYXQiOjE3MTg2NDAwODR9.wJT_9yt2v1ZTyt2PnUJb6oTCOgiLpivhaVvs4EPTams"
-let refreshTokenValue = "7d754d7b1b0abd087e23a12e983a9fc46f1b74f7c4d2c4fd36dc53f52d99ba30"
+//TODO: store access token and refresk token in mongodb
+let accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BKVlYiLCJzdWIiOiI4WTY1WU4iLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJyZXMgcmxvYyByd2VpIHJociBydGVtIiwiZXhwIjoxNzE4NzU5NjQ0LCJpYXQiOjE3MTg3MzA4NDR9.UkfoHoiegiuChlHPUSr41GQVH0xrySBpXUMuZs3Y9es"
+let refreshTokenValue = "a872f8e7a16f1a2cb1441551c1c828e94cd3d08e7118baecaebf0688d0f2164e"
 const clientID = "23PJVV"
 const clientSecret = "3b6ffef79eb778b0723b95deae687708"
 
@@ -40,7 +41,7 @@ async function refreshToken(refreshToken, clientID, clientSecret){
 }
 
 async function getFitbitData() {
-    const response = await fetch('https://api.fitbit.com/1/user/-/profile.json', {
+    let response = await fetch('https://api.fitbit.com/1/user/-/profile.json', {
         method: 'GET',
         headers: {'Authorization': 'Bearer ' + accessToken }
     })
@@ -51,20 +52,20 @@ async function getFitbitData() {
       accessToken = tokenData.access_token
       refreshTokenValue = tokenData.refresh_token
 
-      secondResponse = await fetch("https://api.fitbit.com/1/user/-/profile.json", {
+      response = await fetch("https://api.fitbit.com/1/user/-/profile.json", {
         method: 'GET', 
         headers: {
           'Authorization': 'Bearer ' + accessToken
         }
       });
+      }
+      
+    if (!response.ok) {
+      console.log(response)
+      throw new Error('FitBit Network response was not ok: ' + response.statusText);
     }
 
-    if (!secondResponse.ok) {
-      console.log(secondResponse)
-      throw new Error('FitBit Network response was not ok: ' + secondResponse.statusText);
-    }
-
-    const data = await secondResponse.json();
+    const data = await response.json();
     console.log(data)
     return data;
 }
