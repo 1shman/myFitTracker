@@ -18,7 +18,7 @@ const clientSecret = "3b6ffef79eb778b0723b95deae687708"
 
 
 async function refreshToken(refreshToken, clientID, clientSecret){
-  const response = await fetfetch('https://api.fitbit.com/oauth2/token', {
+  const response = await fetch('https://api.fitbit.com/oauth2/token', {
     method: 'POST',
     headers: {
         'Authorization': 'Basic ' + Buffer.from(clientID + ':' + clientSecret).toString('base64'),
@@ -35,6 +35,7 @@ async function refreshToken(refreshToken, clientID, clientSecret){
   }
 
   const data = await response.json();
+  console.log("returned data: " + JSON.stringify(data))
   return data;
 }
 
@@ -46,10 +47,11 @@ async function getFitbitData() {
 
     if (response.status === 401){
       const tokenData = await refreshToken(refreshTokenValue, clientID, clientSecret)
-      accessToken = tokenData.accessToken
-      refreshTokenValue = tokenData.refreshToken
+      console.log("New refresh token: " + tokenData.accessToken)
+      accessToken = tokenData.access_token
+      refreshTokenValue = tokenData.refresh_token
 
-      response = await fetch("https://api.fitbit.com/1/user/-/profile.json", {
+      secondResponse = await fetch("https://api.fitbit.com/1/user/-/profile.json", {
         method: 'GET', 
         headers: {
           'Authorization': 'Bearer ' + accessToken
@@ -57,12 +59,12 @@ async function getFitbitData() {
       });
     }
 
-    if (!response.ok) {
-      console.log(response)
-      throw new Error('FitBit Network response was not ok: ' + response.statusText);
+    if (!secondResponse.ok) {
+      console.log(secondResponse)
+      throw new Error('FitBit Network response was not ok: ' + secondResponse.statusText);
     }
 
-    const data = await response.json();
+    const data = await secondResponse.json();
     console.log(data)
     return data;
 }
