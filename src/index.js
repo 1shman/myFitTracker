@@ -3,7 +3,7 @@ const express = require("express")
 const path = require("path")
 const ejs = require("ejs")
 const session = require('express-session');
-const collection = require("./mongodb")
+const {collection, updateTokens} = require("./mongodb")
 const getFitbitData = require('./getFitbitData');
 const axios = require('axios');
 
@@ -38,10 +38,15 @@ app.post("/signup", async(req, res) => {
 
   const data={
     name: req.body.name, 
-    password: req.body.password
+    password: req.body.password,
+    access_token: "0",
+    refresh_token: "0"
   }
 
-  await collection.insertMany([data])
+  result = await collection.insertMany([data])
+  const user = result[0]
+  req.session.userId = user._id
+  console.log(req.session.userId)
 
   res.redirect('/connect-fitbit')
   // res.render("home")
@@ -56,7 +61,6 @@ app.get('/connect-fitbit', (req, res) => {
 
 app.get('/fitbit/callback', async (req, res) => {
   const { code } = req.query;
-  console.log(code)
 
   try {
       const response = await axios.post('https://api.fitbit.com/oauth2/token', null, {
@@ -75,16 +79,14 @@ app.get('/fitbit/callback', async (req, res) => {
           }
       });
 
-      console.log(response)
-      const fitbitData = response
-      const user = fitbitData.user
-      req.session.user = user;
-      //TODO LEFT OFF HERE 
-      //GET ACCESS/REFRESH TOKENS THEN CALL GETFITBITDATA TO USE TO CREATE REQ.SESSION.USER
-      // user.fitbitAccessToken = fitbitData.data.access_token;
-      // user.fitbitRefreshToken = fitbitData.data.refresh_token;
+      const tokenData = response
+      let accessToken = tokenData.data.access_token;
+      let refreshToken = tokenData.data.refresh_token;
+      const fitbitData = await getFitbitData(accessToken, refreshToken)
+      await updateTokens(req.session.userId, accessToken, refreshToken)
 
-      req.session.user = "undefined"
+      req.session.user = fitbitData.user;
+
       res.redirect('/home');
   } catch (error) {
       console.error('Error exchanging code for token:', error);
@@ -99,6 +101,7 @@ app.post("/login", async(req, res) => {
     
     if (check.password===req.body.password){
       try{
+        // TODO fix this function call
         const fitbitData = await getFitbitData();
         const user = fitbitData.user
         req.session.user = user;

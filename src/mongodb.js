@@ -30,4 +30,30 @@ const LogInSchema = new mongoose.Schema({
 
 const collection=new mongoose.model("logInCollection", LogInSchema)
 
-module.exports=collection
+async function updateTokens(userId, newAccessToken, newRefreshToken) {
+    try {
+        const result = await collection.findByIdAndUpdate(
+            userId,
+            {
+                $set: {
+                    access_token: newAccessToken,
+                    refresh_token: newRefreshToken
+                }
+            },
+            { new: true }
+        );
+
+        if (result) {
+            console.log('User tokens updated:', result);
+        } else {
+            console.log('User not found');
+        }
+    } catch (error) {
+        console.error('Error updating tokens:', error);
+    }
+}
+
+module.exports={
+    collection,
+    updateTokens
+};

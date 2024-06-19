@@ -12,8 +12,8 @@
 // src/getFitbitData.js
 
 //TODO: store access token and refresk token in mongodb
-let accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BKVlYiLCJzdWIiOiI4WTY1WU4iLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJyZXMgcmxvYyByd2VpIHJociBydGVtIiwiZXhwIjoxNzE4NzgxOTc1LCJpYXQiOjE3MTg3NTMxNzV9.Ypxib-Ur0-qCg9xwy-rhJopKA5A7mTS_QHHAJs74g9c"
-let refreshTokenValue = "f6fbb385b60baf3be9246136859fa7629989821b882f1ac4a5e7b47aba13855"
+// let accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BKVlYiLCJzdWIiOiI4WTY1WU4iLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJyZXMgcmxvYyByd2VpIHJociBydGVtIiwiZXhwIjoxNzE4NzgxOTc1LCJpYXQiOjE3MTg3NTMxNzV9.Ypxib-Ur0-qCg9xwy-rhJopKA5A7mTS_QHHAJs74g9c"
+// let refreshTokenValue = "f6fbb385b60baf3be9246136859fa7629989821b882f1ac4a5e7b47aba13855"
 const clientID = "23PJVV"
 const clientSecret = "3b6ffef79eb778b0723b95deae687708"
 
@@ -40,7 +40,7 @@ async function refreshToken(refreshToken, clientID, clientSecret){
   return data;
 }
 
-async function getFitbitData() {
+async function getFitbitData(accessToken, refreshTokenValue) {
     let response = await fetch('https://api.fitbit.com/1/user/-/profile.json', {
         method: 'GET',
         headers: {'Authorization': 'Bearer ' + accessToken }
@@ -66,7 +66,7 @@ async function getFitbitData() {
     }
 
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 }
 
