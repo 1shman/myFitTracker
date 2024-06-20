@@ -53,7 +53,24 @@ async function updateTokens(userId, newAccessToken, newRefreshToken) {
     }
 }
 
+async function getTokensByName(name) {
+    try {
+      const user = await collection.findOne({ name: name });
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return {
+        accessToken: user.access_token,
+        refreshToken: user.refresh_token
+      };
+    } catch (error) {
+      console.error('Error retrieving tokens:', error);
+      throw error;
+    }
+  }
+
 module.exports={
     collection,
-    updateTokens
+    updateTokens, 
+    getTokensByName
 };

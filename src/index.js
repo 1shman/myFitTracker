@@ -3,7 +3,7 @@ const express = require("express")
 const path = require("path")
 const ejs = require("ejs")
 const session = require('express-session');
-const {collection, updateTokens} = require("./mongodb")
+const {collection, updateTokens, getTokensByName} = require("./mongodb")
 const getFitbitData = require('./getFitbitData');
 const axios = require('axios');
 
@@ -102,7 +102,9 @@ app.post("/login", async(req, res) => {
     if (check.password===req.body.password){
       try{
         // TODO fix this function call
-        const fitbitData = await getFitbitData();
+        const getTokens = await getTokensByName(req.body.name)
+        console.log(getTokens)
+        const fitbitData = await getFitbitData(getTokens.accessToken, getTokens.refreshToken);
         const user = fitbitData.user
         req.session.user = user;
         res.redirect("/home")
