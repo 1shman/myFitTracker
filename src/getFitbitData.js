@@ -58,7 +58,7 @@ async function getFitbitData(accessToken, refreshTokenValue) {
           'Authorization': 'Bearer ' + accessToken
         }
       });
-      }
+    }
       
     if (!response.ok) {
       console.log(response)

@@ -39,8 +39,8 @@ app.post("/signup", async(req, res) => {
   const data={
     name: req.body.name, 
     password: req.body.password,
-    access_token: "0",
-    refresh_token: "0"
+    access_token: null,
+    refresh_token: null
   }
 
   result = await collection.insertMany([data])

@@ -20,11 +20,11 @@ const LogInSchema = new mongoose.Schema({
     },
     access_token: {
         type: String, 
-        required: true
+        required: false
     }, 
     refresh_token: {
         type: String, 
-        required: true 
+        required: false 
     }
 })
 
