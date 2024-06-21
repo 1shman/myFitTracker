@@ -8,17 +8,32 @@
 </head>
 <body>
 
-    <h2>Log In</h2>
+    <div id ="container"> 
+        <div id ="pageHeader">Log In</div>
+        <Strong> Welcome to myFitTracker! </Strong>
+        <p> This website uses the Fitbit API to retrieve and display your health metrics.</p>
 
-    <form action="/login" method="post">
-
-    <input type="text" name="name" placeholder="name">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit">
-   
-    </form>
-
-    <a href="/signup"> Make a new account</a>
+        <form action="/login" method="post">
+            <input type="text" name="name" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Log In">
+        </form>
     
+        <div id ="signin-container"> 
+            <p> Don't have an account? </p>
+            <a href="/signup"> Sign Up!</a>
+        </div>
+
+        <div id ="lower">
+            <p> Powered by </p>
+            <img src="/images/fitbit.png" alt="Fitbit PNG">
+        </div>
+    </div>
+
 </body>
+
+<footer>
+    <p>Personal project coded by <a href="https://github.com/1shman" target="_blank">Ishraq Rahman</a></p>
+</footer>
+    
 </html>

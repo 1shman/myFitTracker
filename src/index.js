@@ -50,7 +50,6 @@ app.post("/signup", async(req, res) => {
 
   res.redirect('/connect-fitbit')
   // res.render("home")
-
 })
 
 app.get('/connect-fitbit', (req, res) => {
@@ -101,7 +100,6 @@ app.post("/login", async(req, res) => {
     
     if (check.password===req.body.password){
       try{
-        // TODO fix this function call
         const getTokens = await getTokensByName(req.body.name)
         console.log(getTokens)
         const fitbitData = await getFitbitData(getTokens.accessToken, getTokens.refreshToken);

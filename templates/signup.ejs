@@ -4,20 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myFitTracker</title>
+    <link rel="stylesheet" href="/signup.css">
 </head>
 <body>
-
-    <h2>Signup</h2>
-
-    <form action="/signup" method="post">
-
-    <input type="text" name="name" placeholder="name">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit">
-   
-    </form>
-
-    <a href="/"> Already have an account?</a>
+    <div id ="container"> 
+        <div id ="pageHeader">Sign In</div>
+        <p> Create an account to be one step closer to your fitness goals!</p>
     
+        <form action="/signup" method="post">
+            <input type="text" name="name" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" value="Sign Up">
+        </form>
+
+        <div id ="login-container"> 
+            <p> Already have an account? </p>
+            <a href="/"> Log In!</a>
+        </div>
+
+        <div id ="lower">
+            <p> Powered by </p>
+            <img src="/images/fitbit.png" alt="Fitbit PNG">
+        </div>
+    </div>
 </body>
+    <footer>
+        <p>Personal project coded by <a href="https://github.com/1shman" target="_blank">Ishraq Rahman</a></p>
+    </footer>
 </html>

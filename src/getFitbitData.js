@@ -18,7 +18,7 @@ const clientID = "23PJVV"
 const clientSecret = "3b6ffef79eb778b0723b95deae687708"
 
 
-async function refreshToken(refreshToken, clientID, clientSecret){
+async function refreshToken(refreshTokenValue, clientID, clientSecret){
   const response = await fetch('https://api.fitbit.com/oauth2/token', {
     method: 'POST',
     headers: {
@@ -27,7 +27,7 @@ async function refreshToken(refreshToken, clientID, clientSecret){
     },
     body: new URLSearchParams({
       grant_type: 'refresh_token',
-      refresh_token: refreshToken
+      refresh_token: refreshTokenValue
     })
   });
 

@@ -1,0 +1,98 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    text-align: center; /* Center text inside the container */
+    background-color: rgb(235, 235, 235);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    padding: 40px;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    gap: 20px;
+    width: 300px;
+    height: 550px;
+    font-family: 'Arial', sans-serif;
+}
+
+#pageHeader{
+    font-weight: bold;
+    color: #343434;
+}
+
+form {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px; 
+    width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-bottom: 2px solid #ccc; /* Bottom border for input fields */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.2s ease; /* Smooth transition for border color */
+    width: 100%; /* Ensure inputs take full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-bottom-color: #4cc2c4; /* Change border color on focus */
+}
+
+input[type="submit"] {
+    padding: 10px 25px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4cc2c4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Smooth transition for background color */
+}
+
+a[href="/"] {
+    color: #f54785;
+    text-decoration: underline;
+}
+
+#lower {
+    text-align: center;
+    margin-top: auto;
+}
+
+img{
+    width: 100px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    font-family: "Poppins", sans-serif;
+    color: black;
+    /* width: 100%;
+    text-align: center;
+    padding: 10px 0; 
+    font-size: medium; */
+}
+
+a[href="https://github.com/1shman"] {
+    text-decoration: none;
+    color: #4cc2c4;
+}
