@@ -6,6 +6,7 @@ const session = require('express-session');
 const {collection, updateTokens, getTokensByName} = require("./mongodb")
 const getFitbitData = require('./getFitbitData');
 const axios = require('axios');
+require('dotenv').config();
 
 const templatePath = path.join(__dirname, "../templates")
 
@@ -15,15 +16,15 @@ app.use(express.urlencoded({extended:false}))
 app.set('view engine', 'ejs')
 app.set("views", templatePath)
 app.use(session({
-  secret: 'mumbojumbo', //secret key
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Set to true if HTTPS
 }))
 app.use(express.static(path.join(__dirname, '../public')))
 
-const clientID = "23PJVV"
-const clientSecret = "3b6ffef79eb778b0723b95deae687708"
+const clientID = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 const redirectUri = 'http://localhost:3000/fitbit/callback';
 
 app.get("/", (req, res) => {
