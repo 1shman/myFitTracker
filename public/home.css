@@ -1,0 +1,48 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif; /* Optional: Change to your desired font */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    width: auto;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Optional: Add some padding for better spacing */
+    background-color: #f8f8f8;    
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for better separation */
+    font-weight: bold;
+    font-size: large;
+}
+
+#left img {
+    margin-left: 10px; /* Optional: Add some space between the text and the image */
+    width: 100px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+button{
+    padding: 10px 15px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #f54785;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Smooth transition for background color */
+}
+
+#dashboard{
+    color: #f8f8f8;
+    background-color: #343434;
+    height: 100%;
+    flex: 1;
+}

@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myFitTracker</title>
+    <link rel="stylesheet" href="/home.css">
     <link rel="icon" type="image/x-ico" href="/images/dumbell_icon.png">
 </head>
 <body>
-    <h1>Hello  <%= user.fullName %> </h1>
-    <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
-    <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
-    <a href="#" onclick="logout()">Logout</a>
+    <div id="header">
+        <div id="left"> myFitTracker powered by <img src="/images/fitbit.png" alt="Fitbit PNG"> </div>
+        <div id="right"> <button onclick="logout()">Logout</a> </div>
+    </div>
+
+    <div id="dashboard">
+        <h1>Hello  <%= user.fullName %> </h1>
+        <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
+        <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
+    </div>
+
     <script>
         function logout() {
             // Create a form element
