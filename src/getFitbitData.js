@@ -55,4 +55,22 @@ async function getFitbitData(accessToken, refreshTokenValue) {
     return data;
 }
 
-module.exports = getFitbitData;
+async function getHeartRate(accessToken){
+  const response = await fetch('https://api.fitbit.com/1/user/-/activities/heart/date/today/1w.json', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch heart rate data: ' + response.statusText);
+  }
+
+  const data = await response.json();
+  console.log(data['activities-heart'][0]["value"]["restingHeartRate"])
+  return data['activities-heart'][0]["value"]["restingHeartRate"];
+}
+
+module.exports = {getFitbitData, getHeartRate};

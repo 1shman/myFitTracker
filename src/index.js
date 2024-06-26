@@ -4,7 +4,7 @@ const path = require("path")
 const ejs = require("ejs")
 const session = require('express-session');
 const {collection, updateTokens, getTokensByName} = require("./mongodb")
-const getFitbitData = require('./getFitbitData');
+const {getFitbitData, getHeartRate} = require('./getFitbitData');
 const axios = require('axios');
 require('dotenv').config();
 
@@ -54,7 +54,8 @@ app.post("/signup", async(req, res) => {
 })
 
 app.get('/connect-fitbit', (req, res) => {
-  const authUrl = `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=${clientID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=profile&expires_in=604800`;
+  const scopes = encodeURIComponent('profile heartrate');
+  const authUrl = `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=${clientID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scopes}&expires_in=604800`;
   res.redirect(authUrl);
 });
 
@@ -83,6 +84,7 @@ app.get('/fitbit/callback', async (req, res) => {
       let accessToken = tokenData.data.access_token;
       let refreshToken = tokenData.data.refresh_token;
       const fitbitData = await getFitbitData(accessToken, refreshToken)
+      req.session.accessToken = accessToken
       // await updateTokens(req.session.userId, accessToken, refreshToken)
       //tokens no longer needed because we do a oauth2 sign in upon login
 
@@ -125,8 +127,9 @@ app.post("/login", async(req, res) => {
 })
 
 app.get("/home", async(req, res) => {
-    if (req.session.user){
-      res.render("home", {user: req.session.user})
+    if (req.session.user && req.session.accessToken){
+      let heartRateValue = await getHeartRate(req.session.accessToken)
+      res.render("home", {user: req.session.user, heartrate: heartRateValue })
     }else{
       res.redirect("/")
     }
