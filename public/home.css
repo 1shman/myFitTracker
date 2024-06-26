@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif; /* Optional: Change to your desired font */
+    font-family: Arial, sans-serif; 
 }
 
 body {
@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* Optional: Add some padding for better spacing */
+    padding: 0 20px; 
     background-color: #f8f8f8;    
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for better separation */
     font-weight: bold;
@@ -27,6 +27,12 @@ body {
     width: 100px;
     height: 30px;
     vertical-align: middle;
+}
+
+#right{
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 button{

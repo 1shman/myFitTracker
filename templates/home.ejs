@@ -10,11 +10,10 @@
 <body>
     <div id="header">
         <div id="left"> myFitTracker powered by <img src="/images/fitbit.png" alt="Fitbit PNG"> </div>
-        <div id="right"> <button onclick="logout()">Logout</a> </div>
+        <div id="right"> <div id="rightText">Hello, <%= user.fullName %> </div><button onclick="logout()">Logout</a> </div>
     </div>
 
     <div id="dashboard">
-        <h1>Hello  <%= user.fullName %> </h1>
         <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
         <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
     </div>
