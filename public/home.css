@@ -35,6 +35,11 @@ body {
     align-items: center;
 }
 
+#right img{
+    height: 50px;
+    border-radius: 50%;
+}
+
 button{
     padding: 10px 15px;
     font-size: 1em;

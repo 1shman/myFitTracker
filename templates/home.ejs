@@ -10,7 +10,10 @@
 <body>
     <div id="header">
         <div id="left"> myFitTracker powered by <img src="/images/fitbit.png" alt="Fitbit PNG"> </div>
-        <div id="right"> <div id="rightText">Hello, <%= user.fullName %> </div><button onclick="logout()">Logout</a> </div>
+        <div id="right"> 
+            <img src="<%= user.avatar %>" alt="Avatar jpg"> 
+            <div id="rightText">Hello, <%= user.fullName %> </div>
+            <button onclick="logout()">Logout</a> </div>
     </div>
 
     <div id="dashboard">

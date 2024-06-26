@@ -87,6 +87,7 @@ app.get('/fitbit/callback', async (req, res) => {
       //tokens no longer needed because we do a oauth2 sign in upon login
 
       req.session.user = fitbitData.user;
+      console.log(req.session.user)
 
       res.redirect('/home');
   } catch (error) {
@@ -94,7 +95,7 @@ app.get('/fitbit/callback', async (req, res) => {
       res.status(500).send('Authentication failed');
   }
 });
-  
+
 app.post("/login", async(req, res) => {
 
   try {
