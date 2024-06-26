@@ -1,5 +1,8 @@
 // src/getFitbitData.js
 
+const clientID = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+
 async function refreshToken(refreshTokenValue, clientID, clientSecret){
   const response = await fetch('https://api.fitbit.com/oauth2/token', {
     method: 'POST',

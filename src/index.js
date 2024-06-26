@@ -83,7 +83,8 @@ app.get('/fitbit/callback', async (req, res) => {
       let accessToken = tokenData.data.access_token;
       let refreshToken = tokenData.data.refresh_token;
       const fitbitData = await getFitbitData(accessToken, refreshToken)
-      await updateTokens(req.session.userId, accessToken, refreshToken)
+      // await updateTokens(req.session.userId, accessToken, refreshToken)
+      //tokens no longer needed because we do a oauth2 sign in upon login
 
       req.session.user = fitbitData.user;
 
@@ -93,7 +94,7 @@ app.get('/fitbit/callback', async (req, res) => {
       res.status(500).send('Authentication failed');
   }
 });
-
+  
 app.post("/login", async(req, res) => {
 
   try {
@@ -101,12 +102,13 @@ app.post("/login", async(req, res) => {
     
     if (check.password===req.body.password){
       try{
-        const getTokens = await getTokensByName(req.body.name)
-        console.log(getTokens)
-        const fitbitData = await getFitbitData(getTokens.accessToken, getTokens.refreshToken);
-        const user = fitbitData.user
-        req.session.user = user;
-        res.redirect("/home")
+        // const getTokens = await getTokensByName(req.body.name)
+        // console.log(getTokens)
+        // const fitbitData = await getFitbitData(getTokens.accessToken, getTokens.refreshToken);
+        // const user = fitbitData.user
+        // req.session.user = user
+        res.redirect('/connect-fitbit')
+        // res.redirect("/home")
       }catch (error) {
         console.error('Error fetching Fitbit data:', error);
         res.status(500).send('Internal Server Error');

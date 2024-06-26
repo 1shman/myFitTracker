@@ -45,7 +45,7 @@ async function updateTokens(userId, newAccessToken, newRefreshToken) {
         if (result) {
             console.log('User tokens updated:', result);
         } else {
-            console.log('User not found');
+            console.log('User not found 1');
         }
     } catch (error) {
         console.error('Error updating tokens:', error);
@@ -56,7 +56,7 @@ async function getTokensByName(name) {
     try {
       const user = await collection.findOne({ name: name });
       if (!user) {
-        throw new Error('User not found');
+        throw new Error('User not found 2');
       }
       return {
         accessToken: user.access_token,
