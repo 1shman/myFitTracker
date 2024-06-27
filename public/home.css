@@ -57,3 +57,21 @@ button{
     height: 100%;
     flex: 1;
 }
+
+#chart {
+    /* background-color: #fff; Change to your desired background color */
+    padding: 20px; /* Optional padding */
+    box-sizing: border-box; /* Ensures padding doesn't affect size */
+    width: 100%; /* Make the chart container take the full width */
+    height: 400px; /* Set a fixed height for the chart */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Add some margin to avoid overlapping */
+}
+
+#myChart {
+    background-color: #f8f8f8;
+    width: 50% !important; /* Ensure canvas takes full width */
+    height: 100% !important; /* Ensure canvas takes full height */
+}
