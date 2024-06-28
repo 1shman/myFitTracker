@@ -69,8 +69,10 @@ async function getHeartRate(accessToken){
   }
 
   const data = await response.json();
-  console.log(data['activities-heart'][0]["value"]["restingHeartRate"])
-  return data['activities-heart'][0]["value"]["restingHeartRate"];
+  // console.log(data['activities-heart'][0]["value"]["restingHeartRate"])
+  console.log(data['activities-heart'])
+  // return data['activities-heart'][0]["value"]["restingHeartRate"];
+  return data['activities-heart']
 }
 
 module.exports = {getFitbitData, getHeartRate};

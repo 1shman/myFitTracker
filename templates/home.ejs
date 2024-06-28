@@ -17,7 +17,8 @@
     </div>
 
     <div id="dashboard">
-        <h1>Resting Heart rate  <%= heartrate %> </h1>
+        <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
+        <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
         <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
         <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
         <div id = "chart">
@@ -41,24 +42,32 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const xaxis = <%- JSON.stringify(dateTimes) %>;
+        const yaxis = <%- JSON.stringify(restingHeartRates) %>;
       
         new Chart(ctx, {
-          type: 'bar',
+          type: 'line',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: xaxis,
             datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1
+              label: 'Average Resting Heart Rate',
+              data: yaxis,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderWidth: 1,
+              fill: true
             }]
           },
           options: {
             scales: {
               y: {
-                beginAtZero: true
+                beginAtZero: false
               }
-            }
+            },
+            responsive: true,
+            maintainAspectRatio: false
           }
         });
     </script>

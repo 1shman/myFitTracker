@@ -129,7 +129,9 @@ app.post("/login", async(req, res) => {
 app.get("/home", async(req, res) => {
     if (req.session.user && req.session.accessToken){
       let heartRateValue = await getHeartRate(req.session.accessToken)
-      res.render("home", {user: req.session.user, heartrate: heartRateValue })
+      const dateTimes = heartRateValue.map(item => item.dateTime)
+      const restingHeartRates = heartRateValue.map(item => item.value.restingHeartRate || null)
+      res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates})
     }else{
       res.redirect("/")
     }
