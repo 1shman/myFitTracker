@@ -22,7 +22,7 @@
         <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
         <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
         <div id = "chart">
-            <canvas id="myChart"></canvas>
+            <canvas id="heartChart"></canvas>
         </div>
     </div>
 
@@ -42,7 +42,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx = document.getElementById('heartChart').getContext('2d');
 
         const xaxis = <%- JSON.stringify(dateTimes) %>;
         const yaxis = <%- JSON.stringify(restingHeartRates) %>;

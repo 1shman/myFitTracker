@@ -69,10 +69,26 @@ async function getHeartRate(accessToken){
   }
 
   const data = await response.json();
-  // console.log(data['activities-heart'][0]["value"]["restingHeartRate"])
   console.log(data['activities-heart'])
-  // return data['activities-heart'][0]["value"]["restingHeartRate"];
   return data['activities-heart']
 }
 
-module.exports = {getFitbitData, getHeartRate};
+async function getSleep(accessToken) {
+  const response = await fetch('https://api.fitbit.com/1.2/user/-/sleep/date/today/max/7d.json', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch sleep data: ' + response.statusText);
+  }
+
+  const data = await response.json();
+  console.log(sleep)
+  return data['sleep'];
+}
+
+module.exports = {getFitbitData, getHeartRate, getSleep};
