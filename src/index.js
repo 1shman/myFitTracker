@@ -132,7 +132,8 @@ app.get("/home", async(req, res) => {
       const dateTimes = heartRateValue.map(item => item.dateTime)
       const restingHeartRates = heartRateValue.map(item => item.value.restingHeartRate || null)
       let sleepData = await getSleep(req.session.accessToken)
-      res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates})
+      const sleepTimes = sleepData.map(item => item.minutesAsleep)
+      res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates, sleepTimes: sleepTimes})
     }else{
       res.redirect("/")
     }
