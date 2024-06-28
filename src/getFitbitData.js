@@ -74,20 +74,37 @@ async function getHeartRate(accessToken){
 }
 
 async function getSleep(accessToken) {
-  const response = await fetch('https://api.fitbit.com/1.2/user/-/sleep/date/today/max/7d.json', {
+  // Calculate the start and end dates for the past week
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(endDate.getDate() - 6);
+
+  // Format the dates to 'yyyy-MM-dd'
+  const formatDate = (date) => date.toISOString().split('T')[0];
+  const start = formatDate(startDate);
+  const end = formatDate(endDate);
+
+  // Construct the URL with start and end dates
+  const url = `https://api.fitbit.com/1.2/user/-/sleep/date/${start}/${end}.json`;
+  const headers = {
+    'Authorization': 'Bearer ' + accessToken,
+    'Content-Type': 'application/json'
+  };
+
+  const response = await fetch(url, {
     method: 'GET',
-    headers: {
-      'Authorization': 'Bearer ' + accessToken,
-      'Content-Type': 'application/json'
-    }
+    headers: headers
   });
 
   if (!response.ok) {
+    console.error('Failed to fetch sleep data:', response.status, response.statusText);
+    const errorData = await response.text();
+    console.error('Error response data:', errorData);
     throw new Error('Failed to fetch sleep data: ' + response.statusText);
   }
 
   const data = await response.json();
-  console.log(sleep)
+  console.log('Fetched sleep data:', data);
   return data['sleep'];
 }
 
