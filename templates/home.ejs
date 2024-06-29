@@ -19,11 +19,12 @@
     <div id="dashboard">
         <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
         <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
-        <h1>Testing: "<%= sleepTimes %>" </h1>
+        <h1>Testing: "<%= JSON.stringify(sleepTimes) %>" </h1>
         <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
         <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
         <div id = "chart">
             <canvas id="heartChart"></canvas>
+            <canvas id="sleepChart"></canvas>
         </div>
     </div>
 
@@ -43,12 +44,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('heartChart').getContext('2d');
+        const heartCtx = document.getElementById('heartChart').getContext('2d');
+        const sleepCtx = document.getElementById('sleepChart').getContext('2d');
 
         const xaxis = <%- JSON.stringify(dateTimes) %>;
         const yaxis = <%- JSON.stringify(restingHeartRates) %>;
+        const yaxisSleep = <%- JSON.stringify(sleepTimes) %>;
       
-        new Chart(ctx, {
+        new Chart(heartCtx, {
           type: 'line',
           data: {
             labels: xaxis,
@@ -57,6 +60,30 @@
               data: yaxis,
               borderColor: 'rgba(75, 192, 192, 1)',
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderWidth: 1,
+              fill: true
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: false
+              }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+
+        new Chart(sleepCtx, {
+          type: 'line',
+          data: {
+            labels: xaxis,
+            datasets: [{
+              label: 'Sleep Times',
+              data: yaxisSleep,
+              borderColor: 'rgba(153, 102, 255, 1)',
+              backgroundColor: 'rgba(153, 102, 255, 0.2)',
               borderWidth: 1,
               fill: true
             }]
