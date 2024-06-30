@@ -20,11 +20,13 @@
         <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
         <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
         <h1>Testing: "<%= JSON.stringify(sleepTimes) %>" </h1>
+        <h1>Testing: "<%= JSON.stringify(stepTimes) %>" </h1>
         <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
         <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
         <div id = "chart">
             <canvas id="heartChart"></canvas>
             <canvas id="sleepChart"></canvas>
+            <canvas id="stepChart"></canvas>
         </div>
     </div>
 
@@ -46,10 +48,13 @@
     <script>
         const heartCtx = document.getElementById('heartChart').getContext('2d');
         const sleepCtx = document.getElementById('sleepChart').getContext('2d');
+        const stepCtx = document.getElementById('stepChart').getContext('2d');
+        
 
         const xaxis = <%- JSON.stringify(dateTimes) %>;
         const yaxis = <%- JSON.stringify(restingHeartRates) %>;
         const yaxisSleep = <%- JSON.stringify(sleepTimes) %>;
+        const yaxisStep = <%- JSON.stringify(stepTimes) %>;
       
         new Chart(heartCtx, {
           type: 'line',
@@ -82,6 +87,30 @@
             datasets: [{
               label: 'Sleep Times',
               data: yaxisSleep,
+              borderColor: 'rgba(153, 102, 255, 1)',
+              backgroundColor: 'rgba(153, 102, 255, 0.2)',
+              borderWidth: 1,
+              fill: true
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: false
+              }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+
+        new Chart(stepCtx, {
+          type: 'line',
+          data: {
+            labels: xaxis,
+            datasets: [{
+              label: 'Sleep Times',
+              data: yaxisStep,
               borderColor: 'rgba(153, 102, 255, 1)',
               backgroundColor: 'rgba(153, 102, 255, 0.2)',
               borderWidth: 1,

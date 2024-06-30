@@ -4,7 +4,7 @@ const path = require("path")
 const ejs = require("ejs")
 const session = require('express-session');
 const {collection, updateTokens, getTokensByName} = require("./mongodb")
-const {getFitbitData, getHeartRate, getSleep} = require('./getFitbitData');
+const {getFitbitData, getHeartRate, getSleep, getWeeklySteps} = require('./getFitbitData');
 const axios = require('axios');
 require('dotenv').config();
 
@@ -54,7 +54,7 @@ app.post("/signup", async(req, res) => {
 })
 
 app.get('/connect-fitbit', (req, res) => {
-  const scopes = encodeURIComponent('profile heartrate sleep');
+  const scopes = encodeURIComponent('profile heartrate sleep activity');
   const authUrl = `https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=${clientID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scopes}&expires_in=604800`;
   res.redirect(authUrl);
 });
@@ -133,7 +133,9 @@ app.get("/home", async(req, res) => {
       const restingHeartRates = heartRateValue.map(item => item.value.restingHeartRate || null)
       let sleepData = await getSleep(req.session.accessToken)
       const sleepTimes = sleepData.map(item => item.minutesAsleep)
-      res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates, sleepTimes: sleepTimes})
+      let stepData = await getWeeklySteps(req.session.accessToken)
+      const stepTimes = stepData.map(item => item.value)
+      res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates, sleepTimes: sleepTimes, stepTimes: stepTimes})
     }else{
       res.redirect("/")
     }

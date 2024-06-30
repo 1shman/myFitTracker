@@ -65,6 +65,7 @@ button{
     width: 100%; /* Make the chart container take the full width */
     height: 400px; /* Set a fixed height for the chart */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 20px; /* Add some margin to avoid overlapping */
@@ -77,6 +78,12 @@ button{
 }
 
 #sleepChart {
+    background-color: #f8f8f8;
+    width: 50% !important; /* Ensure canvas takes full width */
+    height: 100% !important; /* Ensure canvas takes full height */
+}
+
+#stepChart {
     background-color: #f8f8f8;
     width: 50% !important; /* Ensure canvas takes full width */
     height: 100% !important; /* Ensure canvas takes full height */

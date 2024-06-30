@@ -108,4 +108,35 @@ async function getSleep(accessToken) {
   return data['sleep'];
 }
 
-module.exports = {getFitbitData, getHeartRate, getSleep};
+async function getWeeklySteps(accessToken) {
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(endDate.getDate() - 6);
+
+  const formatDate = (date) => {
+    return date.toISOString().split('T')[0];
+  }
+
+  const start = formatDate(startDate);
+  const end = formatDate(endDate);
+
+  const url = `https://api.fitbit.com/1/user/-/activities/steps/date/${start}/${end}.json`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch steps data: ' + response.statusText);
+  }
+
+  const data = await response.json();
+  console.log(data['activities-steps'])
+  return data['activities-steps'];
+}
+
+module.exports = {getFitbitData, getHeartRate, getSleep, getWeeklySteps};
