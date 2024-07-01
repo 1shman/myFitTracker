@@ -9,25 +9,29 @@
 </head>
 <body>
     <div id="header">
-        <div id="left"> myFitTracker powered by <img src="/images/fitbit.png" alt="Fitbit PNG"> </div>
+      <a href="/home"> <div id="left"> myFitTracker powered by <img src="/images/fitbit.png" alt="Fitbit PNG"> </div></a>
         <div id="right"> 
             <img src="<%= user.avatar %>" alt="Avatar jpg"> 
-            <div id="rightText">Hello, <%= user.fullName %> </div>
+            <div id="rightText">Hello, <%= user.displayName %> </div>
             <button onclick="logout()">Logout</a> </div>
     </div>
 
     <div id="dashboard">
-        <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
+        <!-- <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
         <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
         <h1>Testing: "<%= JSON.stringify(sleepTimes) %>" </h1>
         <h1>Testing: "<%= JSON.stringify(stepTimes) %>" </h1>
-        <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1>
-        <h1>Average Running Stride Length <%= user.strideLengthRunning %> </h1>
-        <div id = "chart">
-            <canvas id="heartChart"></canvas>
-            <canvas id="sleepChart"></canvas>
+        <h1>Average Daily Steps  <%= user.averageDailySteps %> </h1> -->
+        <a href="/heart"> View Heart Data</a>
+        <!-- <div id = "chart">
+          <div id = "topChart">
+              <canvas id="heartChart"></canvas>
+              <canvas id="sleepChart"></canvas>
+          </div>
+          <div id = "bottomChart">
             <canvas id="stepChart"></canvas>
-        </div>
+          </div>
+        </div> -->
     </div>
 
     <script>

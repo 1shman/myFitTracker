@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myFitTracker</title>
+    <link rel="stylesheet" href="/heart.css">
+    <link rel="icon" type="image/x-ico" href="/images/dumbell_icon.png">
+</head>
+<body>
+
+    <div id="header">
+        <a href="/home"> <div id="left"> myFitTracker powered by <img src="/images/fitbit.png" alt="Fitbit PNG"> </div></a>
+        <div id="right"> 
+            <img src="<%= user.avatar %>" alt="Avatar jpg"> 
+            <div id="rightText">Hello, <%= user.displayName %> </div>
+            <button onclick="logout()">Logout</a> </div>
+    </div>
+
+
+    <div id ="dashboard"> 
+        <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
+        <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
+    </div>
+
+    <div id = "chart">
+        <canvas id="heartChart"></canvas>
+    </div>
+    
+    <script>
+        function logout() {
+            // Create a form element
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/logout';
+
+            // Add the form to the body and submit it
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const heartCtx = document.getElementById('heartChart').getContext('2d');
+
+        const xaxis = <%- JSON.stringify(dateTimes) %>;
+        const yaxis = <%- JSON.stringify(restingHeartRates) %>;
+
+        new Chart(heartCtx, {
+          type: 'line',
+          data: {
+            labels: xaxis,
+            datasets: [{
+              label: 'Average Resting Heart Rate',
+              data: yaxis,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderWidth: 1,
+              fill: true
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: false
+              }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+    </script>
+
+</body>
+
+<footer>
+    <p>Personal project coded by <a href="https://github.com/1shman" target="_blank">Ishraq Rahman</a></p>
+</footer>
+    
+</html>

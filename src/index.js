@@ -127,18 +127,25 @@ app.post("/login", async(req, res) => {
 })
 
 app.get("/home", async(req, res) => {
-    if (req.session.user && req.session.accessToken){
-      let heartRateValue = await getHeartRate(req.session.accessToken)
-      const dateTimes = heartRateValue.map(item => item.dateTime)
-      const restingHeartRates = heartRateValue.map(item => item.value.restingHeartRate || null)
-      let sleepData = await getSleep(req.session.accessToken)
-      const sleepTimes = sleepData.map(item => item.minutesAsleep)
-      let stepData = await getWeeklySteps(req.session.accessToken)
-      const stepTimes = stepData.map(item => item.value)
-      res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates, sleepTimes: sleepTimes, stepTimes: stepTimes})
-    }else{
-      res.redirect("/")
-    }
+  if (req.session.user && req.session.accessToken){
+    let heartRateValue = await getHeartRate(req.session.accessToken)
+    const dateTimes = heartRateValue.map(item => item.dateTime)
+    const restingHeartRates = heartRateValue.map(item => item.value.restingHeartRate || null)
+    let sleepData = await getSleep(req.session.accessToken)
+    const sleepTimes = sleepData.map(item => item.minutesAsleep)
+    let stepData = await getWeeklySteps(req.session.accessToken)
+    const stepTimes = stepData.map(item => item.value)
+    res.render("home", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates, sleepTimes: sleepTimes, stepTimes: stepTimes})
+  }else{
+    res.redirect("/")
+  }
+})
+
+app.get("/heart", async(req, res) => {
+  let heartRateValue = await getHeartRate(req.session.accessToken)
+  const dateTimes = heartRateValue.map(item => item.dateTime)
+  const restingHeartRates = heartRateValue.map(item => item.value.restingHeartRate || null)
+  res.render("heart", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates})
 })
 
 app.post("/logout", (req, res) => {
