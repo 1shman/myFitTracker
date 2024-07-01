@@ -29,6 +29,11 @@ body {
     vertical-align: middle;
 }
 
+a{
+    text-decoration: none;
+    color: #000;
+}
+
 #right{
     display: flex;
     gap: 10px;

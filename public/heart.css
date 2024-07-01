@@ -23,6 +23,11 @@ body {
     font-size: large;
 }
 
+a{
+    text-decoration: none;
+    color: #000;
+}
+
 #left img {
     margin-left: 10px; /* Optional: Add some space between the text and the image */
     width: 100px;
