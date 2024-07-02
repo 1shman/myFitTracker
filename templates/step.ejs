@@ -20,7 +20,7 @@
 
     <div id ="dashboard"> 
       <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
-      <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
+      <h1>Testing: "<%= JSON.stringify(stepTimes) %>" </h1>
       <div id = "chart">
           <canvas id="canvasChart"></canvas>
       </div>
@@ -46,7 +46,7 @@
         const ctx = document.getElementById('canvasChart').getContext('2d');
 
         const xaxis = <%- JSON.stringify(dateTimes) %>;
-        const yaxis = <%- JSON.stringify(restingHeartRates) %>;
+        const yaxis = <%- JSON.stringify(stepTimes) %>;
 
         new Chart(ctx, {
           type: 'line',

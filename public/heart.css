@@ -76,7 +76,7 @@ button{
     margin-top: 20px; /* Add some margin to avoid overlapping */
 }
 
-#heartChart {
+#canvasChart {
     background-color: #f8f8f8;
     width: 50% !important; /* Ensure canvas takes full width */
     height: 100% !important; /* Ensure canvas takes full height */
@@ -91,4 +91,5 @@ footer {
     font-family: "Poppins", sans-serif;
     color: white;
     font-size: medium;
+    margin-top: auto; 
 }

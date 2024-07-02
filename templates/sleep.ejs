@@ -19,11 +19,11 @@
 
 
     <div id ="dashboard"> 
-      <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
-      <h1>Testing: "<%= JSON.stringify(restingHeartRates) %>" </h1>
-      <div id = "chart">
-          <canvas id="canvasChart"></canvas>
-      </div>
+        <h1>Testing: <%= JSON.stringify(dateTimes) %> </h1>
+        <h1>Testing: "<%= JSON.stringify(sleepTimes) %>" </h1>
+        <div id = "chart">
+            <canvas id="canvasChart"></canvas>
+        </div>
     </div>
 
     
@@ -46,14 +46,14 @@
         const ctx = document.getElementById('canvasChart').getContext('2d');
 
         const xaxis = <%- JSON.stringify(dateTimes) %>;
-        const yaxis = <%- JSON.stringify(restingHeartRates) %>;
+        const yaxis = <%- JSON.stringify(sleepTimes) %>;
 
         new Chart(ctx, {
           type: 'line',
           data: {
             labels: xaxis,
             datasets: [{
-              label: 'Average Resting Heart Rate',
+              label: 'Time spent asleep',
               data: yaxis,
               borderColor: 'rgba(75, 192, 192, 1)',
               backgroundColor: 'rgba(75, 192, 192, 0.2)',

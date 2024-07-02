@@ -148,6 +148,22 @@ app.get("/heart", async(req, res) => {
   res.render("heart", {user: req.session.user, dateTimes: dateTimes, restingHeartRates: restingHeartRates})
 })
 
+app.get("/sleep", async(req, res) => {
+  let heartRateValue = await getHeartRate(req.session.accessToken)
+  const dateTimes = heartRateValue.map(item => item.dateTime)
+  let sleepData = await getSleep(req.session.accessToken)
+  const sleepTimes = sleepData.map(item => item.minutesAsleep)
+  res.render("sleep", {user: req.session.user, dateTimes: dateTimes, sleepTimes: sleepTimes})
+})
+
+app.get("/step", async(req, res) => {
+  let heartRateValue = await getHeartRate(req.session.accessToken)
+  const dateTimes = heartRateValue.map(item => item.dateTime)
+  let stepData = await getWeeklySteps(req.session.accessToken)
+  const stepTimes = stepData.map(item => item.value)
+  res.render("step", {user: req.session.user, dateTimes: dateTimes, stepTimes: stepTimes})
+})
+
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err){
