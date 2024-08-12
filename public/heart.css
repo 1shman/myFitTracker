@@ -64,6 +64,15 @@ button{
     flex: 1;
 }
 
+#dashboardMessage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
 #chart {
     padding: 20px; /* Optional padding */
     box-sizing: border-box; /* Ensures padding doesn't affect size */
@@ -78,7 +87,7 @@ button{
 
 #canvasChart {
     background-color: #f8f8f8;
-    width: 50% !important; /* Ensure canvas takes full width */
+    width: 70% !important; /* Ensure canvas takes full width */
     height: 100% !important; /* Ensure canvas takes full height */
 }
 
