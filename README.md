@@ -4,9 +4,9 @@ Personal Project myFitTracker Web Application
 
 myFitTracker is a personal project that utilizes the Fitbit API to gather and display health metrics such as heart rate, sleep data, and step counts. This web application allows users to log in, connect their Fitbit account, and visualize their health data through an interactive dashboard.
 
-## Features
+## Key Features
 
-- **User Authentication:** Users can sign up and log in with their credentials
+- **User Authentication:** Users can sign up and log in with their credentials stored via mongoDB 
 - **Fitbit Integration:** Users can connect their Fitbit account to the application to fetch and display health metrics
 - **Health Data Visualization:** Users can view their average resting heart rate, sleep patterns, and step counts over the past week through dynamic charts
 
