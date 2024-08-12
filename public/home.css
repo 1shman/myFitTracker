@@ -80,8 +80,9 @@ button{
 }
 
 #dashboard a img{
-    width: 350px;
+    width: 400px;
     height: 250px; 
+    border-radius: 40%;
 }
 
 footer {
