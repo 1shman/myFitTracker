@@ -89,7 +89,16 @@ footer {
     text-align: center;
     padding: 10px 0; 
     font-family: "Poppins", sans-serif;
-    color: white;
     font-size: medium;
-    margin-top: auto; 
+    text-decoration: none;
+    color: white;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
 }
